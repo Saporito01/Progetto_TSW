@@ -8,7 +8,7 @@
 <title>Risultati dela ricerca</title>
 </head>
 <body>
-<%@include file="header.jsp" %>
+<%@include file="fragment/header.jsp" %>
 
 <div>
 <%
@@ -35,6 +35,6 @@
 %>
 </div>
 
-<%@include file="footer.jsp" %>
+<%@include file="fragment/footer.jsp" %>
 </body>
 </html>

@@ -10,7 +10,7 @@
 <body>
 
 
-<%@include file="header.jsp" %>
+<%@include file="fragment/header.jsp" %>
 
 
 <main>
@@ -57,7 +57,7 @@
 </main>
 
 
-<%@include file="footer.jsp" %>
+<%@include file="fragment/footer.jsp" %>
 
 
 </body>
