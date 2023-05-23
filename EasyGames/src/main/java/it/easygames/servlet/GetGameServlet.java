@@ -25,8 +25,7 @@ public class GetGameServlet extends HttpServlet {
 		List<Game> model = GameControl.loadGame();
 		request.setAttribute("game", model);
 		
-		RequestDispatcher dispatcher = this.getServletContext().
-				getRequestDispatcher("/home_page.jsp");
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/home_page.jsp");
 		dispatcher.forward(request, response);
 	}
 

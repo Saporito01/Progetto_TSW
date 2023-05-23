@@ -65,7 +65,7 @@ public class AddGameServlet extends HttpServlet {
 		List<Game> gamesList = GameControl.loadGame();
 		request.setAttribute("games", gamesList);
 
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/addGamePage.jsp");
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin pages/addGamePage.jsp");
 		dispatcher.forward(request, response);
 	}
 

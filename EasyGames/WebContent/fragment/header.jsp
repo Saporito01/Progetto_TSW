@@ -23,7 +23,7 @@
 	<option value="epic games">Epic Games</option>
 	</select>
 	<input type="text" name="search">
-	<input type="submit" name="search" value="Cerca">
+	<input type="submit" value="Cerca">
 </form>
 
 <a href=""><img src="images/profilo.png" width="30" height="30" alt="Account"></a>

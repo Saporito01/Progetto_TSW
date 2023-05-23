@@ -22,13 +22,27 @@ public class SearchGameServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nome = (String) request.getParameter("search");
 		String piattaforma = (String) request.getParameter("piattaforma");
+		String nome = (String) request.getParameter("search");
+		String nome1 = (String) request.getParameter("adminSearch");
 		
-		List<Game> gameList = SearchGame.searchBarGame(nome, piattaforma);
+		RequestDispatcher dispatcher;
 		
-		request.setAttribute("gameSearch", gameList);
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/search.jsp");
+		if(nome!=null)
+		{
+			List<Game> gameList = SearchGame.searchBarGame(nome, piattaforma);
+			
+			request.setAttribute("gameSearch", gameList);
+			dispatcher = this.getServletContext().getRequestDispatcher("/search.jsp");
+		}
+		else
+		{
+			List<Game> gameList = SearchGame.searchBarGame(nome1, piattaforma);
+			
+			request.setAttribute("gameSearch", gameList);
+			dispatcher = this.getServletContext().getRequestDispatcher("/admin pages/searchView.jsp");
+		}
+		
 		dispatcher.forward(request, response);
 	}
 

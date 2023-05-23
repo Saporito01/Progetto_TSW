@@ -5,7 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <link rel="icon" type="image/png" href="images/logo.png"/>
-<title>Risultati dela ricerca</title>
+<title>Risultati della ricerca</title>
 </head>
 <body>
 <%@include file="fragment/header.jsp" %>

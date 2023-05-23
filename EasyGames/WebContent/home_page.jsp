@@ -53,7 +53,6 @@
 <a href=""><img src="" alt="Sportivo"></a>
 </div>
 
-<a href="./admin_page.jsp">Add Game</a>
 </main>
 
 

@@ -55,6 +55,48 @@ public class GameControl {
 		return model;
 	}
 	
+	public synchronized static List<Game> loadOrderedGames(){
+		Connection connection = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		List<Game> model = new ArrayList<Game>();
+		
+		try {
+			connection = DBConnectionPool.getConnection();
+			String sql = "SELECT * FROM gioco ORDER BY nome";
+			stmt = connection.prepareStatement(sql);
+			
+			rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				Game item = new Game();
+				item.setId(rs.getString("id"));
+				item.setName(rs.getString("nome"));
+				item.setDesc(rs.getString("descrizione"));
+				item.setPlatf(rs.getString("piattaforma"));
+				item.setQt(rs.getInt("quantita"));
+				item.setPrice(rs.getFloat("prezzo"));
+				
+				model.add(item);
+			}
+		}catch (SQLException sqlException) {
+			System.out.println(sqlException);
+		} 
+			finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+			} catch (SQLException sqlException) {
+				System.out.println(sqlException);
+			} finally {
+				if (connection != null) 
+					DBConnectionPool.releaseConnection(connection);
+			}
+		}
+		return model;
+	}
+
 	public synchronized static byte[] loadCover(String id) {
 
 		Connection connection = null;
