@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="java.util.*, it.easygames.model.Game"%>
+<%
+Collection<?> model = (Collection<?>) request.getAttribute("orderedGames");
+if(model == null) {
+	request.getRequestDispatcher("../GetOrderedGames").forward(request, response);
+	return;
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,12 +35,6 @@
 </form>
 
 <%
-	Collection<?> model = (Collection<?>) request.getAttribute("orderedGames");
-	if(model == null) {
-		request.getRequestDispatcher("../GetOrderedGames").forward(request, response);
-		return;
-	}
-	
 	if(model != null && model.size() > 0) {
 		Iterator<?> it = model.iterator(); 
 		while(it.hasNext()) {

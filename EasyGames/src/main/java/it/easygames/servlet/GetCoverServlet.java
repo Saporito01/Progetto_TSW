@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.easygames.GameControl;
+import it.easygames.CoverControl;
 
 @WebServlet("/GetCoverServlet")
 public class GetCoverServlet extends HttpServlet {
@@ -22,7 +22,7 @@ public class GetCoverServlet extends HttpServlet {
 		String id = (String) request.getParameter("id");
 		if (id != null) 
 		{
-			byte[] bt = GameControl.loadCover(id);
+			byte[] bt = CoverControl.load(id);
 
 			ServletOutputStream out = response.getOutputStream();
 			if (bt != null) 

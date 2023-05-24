@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="java.util.*, it.easygames.model.Game"%>
+<%
+Collection<?> model = (Collection<?>) request.getAttribute("games");
+if(model == null) {
+	response.sendRedirect("./GetGameServlet");	
+	
+	return;
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,12 +25,6 @@
 <div>
 <h2>I più venduti</h2>
 <%
-	Collection<?> model = (Collection<?>) request.getAttribute("game");
-	if(model == null) {
-		request.getRequestDispatcher("./GetGameServlet").forward(request, response);
-		return;
-	}
-	
 	if(model != null && model.size() > 0) {
 		Iterator<?> it = model.iterator(); 
 		while(it.hasNext()) {
@@ -61,3 +63,4 @@
 
 </body>
 </html>
+<!-- request.getRequestDispatcher("./GetGameServlet").forward(request, response); -->

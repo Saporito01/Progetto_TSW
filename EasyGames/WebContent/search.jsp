@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="java.util.*, it.easygames.model.Game"%>
+<%
+Collection<?> model = (Collection<?>) request.getAttribute("gameSearch");
+if(model == null){
+	request.getRequestDispatcher("./SearchGameServlet").forward(request,response);
+	return;
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,12 +19,6 @@
 
 <div>
 <%
-	Collection<?> model = (Collection<?>) request.getAttribute("gameSearch");
-	if(model == null){
-		request.getRequestDispatcher("./SearchGameServlet").forward(request,response);
-		return;
-	}
-
 	if(model != null && model.size() > 0) {
 		Iterator<?> it = model.iterator(); 
 		while(it.hasNext()) {
