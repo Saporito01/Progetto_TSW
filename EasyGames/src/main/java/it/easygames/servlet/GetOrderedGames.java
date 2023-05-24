@@ -39,7 +39,7 @@ public class GetOrderedGames extends HttpServlet {
 		
 		
 		
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin pages/viewGames.jsp");
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/viewGames.jsp");
 		dispatcher.forward(request, response);
 	}
 

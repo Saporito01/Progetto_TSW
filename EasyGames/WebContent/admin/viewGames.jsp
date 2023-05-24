@@ -45,7 +45,6 @@ if(model == null) {
 <%=item.getName()%>
 </a>
 
-
 <%
 		}
 	}

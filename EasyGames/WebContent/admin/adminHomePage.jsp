@@ -9,8 +9,8 @@
 </head>
 <body>
 
-<a href="admin pages/addGamePage.jsp"><button>Inserisci giochi</button></a>
-<a href="admin pages/viewGames.jsp"><button>Visualizza e modifica giochi</button></a>
+<a href="admin/addGamePage.jsp"><button>Inserisci giochi</button></a>
+<a href="admin/viewGames.jsp"><button>Visualizza e modifica giochi</button></a>
 <a href=""><button>Visualizza ordini</button></a>
 
 <a href="./home_page.jsp">Home Page</a>

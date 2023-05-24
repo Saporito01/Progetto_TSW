@@ -23,7 +23,7 @@
 			Game item = (Game)it.next();
 %>
 
-<a href="admin pages/editGames.jsp"><img src="./GetCoverServlet?id=<%=item.getId()%>" width="350" height="200">
+<a href="admin/editGames.jsp"><img src="./GetCoverServlet?id=<%=item.getId()%>" width="350" height="200">
 <%=item.getName()%>
 </a>
 
