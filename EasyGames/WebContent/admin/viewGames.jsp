@@ -41,7 +41,7 @@ if(model == null) {
 			Game item = (Game)it.next();
 %>
 
-<a href="editGames.jsp"><img src="../GetCoverServlet?id=<%=item.getId()%>" width="350" height="200">
+<a href="../GetGameServlet?id=<%=item.getId()%>"><img src="../GetCoverServlet?id=<%=item.getId()%>" width="350" height="200">
 <%=item.getName()%>
 </a>
 

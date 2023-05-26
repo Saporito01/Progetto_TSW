@@ -26,18 +26,32 @@ public class GetGameServlet extends HttpServlet {
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String idGame = (String) request.getParameter("id");
+
 		try
 		{
-			Collection<Game> games = gameDAO.doRetrieveAll("nome");
-			request.setAttribute("games", games);
+			if(idGame != null)
+			{
+				Game game = gameDAO.doRetrieveByKey(idGame);
+				request.setAttribute("game", game);
+				
+				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/editGames.jsp");
+				dispatcher.forward(request, response);
+			}
+			else 
+			{
+				Collection<Game> games = gameDAO.doRetrieveAll("nome");
+				request.setAttribute("games", games);
+
+				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/home_page.jsp");
+				dispatcher.forward(request, response);
+			}
 		}
 		catch(SQLException e)
 		{
 			System.out.println("Error:" + e.getMessage());
 		}
-		
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/home_page.jsp");
-		dispatcher.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

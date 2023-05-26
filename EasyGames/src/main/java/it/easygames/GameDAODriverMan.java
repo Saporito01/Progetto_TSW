@@ -78,6 +78,42 @@ public class GameDAODriverMan implements IGameDAO {
 	}
 
 	@Override
+	public synchronized Game doRetrieveByKey(String id) throws SQLException{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Game item = new Game();
+
+		String selectSQL = "SELECT * FROM " + GameDAODriverMan.TABLE_NAME + " WHERE id = ?";
+
+		try {
+			connection = DBConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, id);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				item.setId(rs.getString("id"));
+				item.setName(rs.getString("nome"));
+				item.setDesc(rs.getString("descrizione"));
+				item.setPlatf(rs.getString("piattaforma"));
+				item.setQt(rs.getInt("quantita"));
+				item.setPrice(rs.getFloat("prezzo"));
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DBConnectionPool.releaseConnection(connection);
+			}
+		}
+		return item;
+	}
+
+	@Override
 	public synchronized Collection<Game> searchBarGame(String nome, String piattaforma) throws SQLException{
 		Connection connection = null;
 		PreparedStatement stmt = null;
@@ -180,5 +216,34 @@ public class GameDAODriverMan implements IGameDAO {
 		return games;
 	}
 	
+	@Override
+	public synchronized void doUpdate(Game game) throws SQLException{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String deleteSQL = "UPDATE " + GameDAODriverMan.TABLE_NAME + " SET nome = ?, descrizione = ?, piattaforma = ?, quantita = ?, prezzo = ? WHERE id = ?";
+
+		try {
+			connection = DBConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setString(1, game.getName());
+			preparedStatement.setString(2, game.getDesc());
+			preparedStatement.setString(3, game.getPlatf());
+			preparedStatement.setInt(4, game.getQt());
+			preparedStatement.setFloat(5, game.getPrice());
+			preparedStatement.setString(6, game.getId());
+
+			preparedStatement.executeUpdate();
+			connection.commit();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DBConnectionPool.releaseConnection(connection);
+			}
+		}
+	}
 	
 }
