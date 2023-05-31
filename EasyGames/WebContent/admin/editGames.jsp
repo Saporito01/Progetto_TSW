@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*, it.easygames.model.Game"%>
+    pageEncoding="ISO-8859-1" import="java.util.*,it.easygames.model.bean.Game"%>
 
 <%
 Game item = (Game) request.getAttribute("game");
@@ -9,12 +9,12 @@ Game item = (Game) request.getAttribute("game");
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link rel="icon" type="image/png" href="images/logo.png"/>
+<link rel="icon" type="image/png" href="../images/logo.png"/>
 <title>Modifica gioco</title>
 </head>
 <body>
 
-<form action="./editGameServlet" enctype="multipart/form-data" method="post">
+<form action="editGame" enctype="multipart/form-data" method="post">
 
 Id: <input type="text" name="id" value="<%=item.getId()%>" readonly="readonly"><br><br>
 
@@ -50,7 +50,7 @@ Carica nuova copertina:
 
 <br>
 
-<a href="./editGameServlet?idRemove=<%=item.getId()%>"><button>Rimuovi</button></a>
+<a href="editGame?idRemove=<%=item.getId()%>"><button>Rimuovi</button></a>
 
 </body>
 </html>

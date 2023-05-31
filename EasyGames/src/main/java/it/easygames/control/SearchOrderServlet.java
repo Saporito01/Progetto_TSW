@@ -1,46 +1,45 @@
-package it.easygames.servlet;
+package it.easygames.control;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.RequestDispatcher;
-
 import java.util.Collection;
 
-import it.easygames.GameDAODriverMan;
-import it.easygames.IGameDAO;
-import it.easygames.model.Game;
+import it.easygames.model.bean.Ordine;
+import it.easygames.model.dao.OrderControl;
 
-@WebServlet("/GetOrderedGames")
-public class GetOrderedGames extends HttpServlet {
+
+@WebServlet("/searchOrder")
+public class SearchOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	static IGameDAO gameDAO = new GameDAODriverMan();
        
-    public GetOrderedGames() {
+    public SearchOrderServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String data1 = (String) request.getParameter("data1");
+		String data2 = (String) request.getParameter("data2");
+		String accountName = (String) request.getParameter("account");
+		
 		try
 		{
-			Collection<Game> games = gameDAO.doRetrieveAll("nome");
-			request.setAttribute("orderedGames", games);
+			Collection<Ordine> ordini = OrderControl.doRetrieveByDate(data1, data2, accountName);
+			request.setAttribute("ordini", ordini);
+			
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/ordersPage.jsp");
+			dispatcher.forward(request, response);
 		}
 		catch(SQLException e)
 		{
 			System.out.println("Error:" + e.getMessage());
 		}
-		
-		
-		
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/viewGames.jsp");
-		dispatcher.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

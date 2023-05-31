@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link rel="icon" type="image/png" href="images/logo.png"/>
+<link rel="icon" type="image/png" href="../images/logo.png"/>
 <title>Pagina Admin</title>
 </head>
 <body>
 
-<form action="../AddGameServlet" enctype="multipart/form-data" method="post">
+<form action="../addGame" enctype="multipart/form-data" method="post">
 
 Id: <input type="text" name="id" required><br><br>
 

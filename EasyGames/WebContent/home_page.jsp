@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*, it.easygames.model.Game"%>
+    pageEncoding="ISO-8859-1" import="java.util.*,it.easygames.model.bean.Game"%>
 <%
 Collection<?> model = (Collection<?>) request.getAttribute("games");
 if(model == null) {
-	response.sendRedirect("./GetGameServlet");	
-	
+	request.getRequestDispatcher("getGame").forward(request, response);
 	return;
 }
 %>
@@ -20,6 +19,7 @@ if(model == null) {
 
 <%@include file="fragment/header.jsp" %>
 
+<a href="admin/adminHomePage.jsp">Admin Page</a>
 
 <main>
 <div>
@@ -32,7 +32,7 @@ if(model == null) {
 %>
 
 <a href="">
-<img src="./GetCoverServlet?id=<%=item.getId()%>" width="350" height="200">
+<img src="getCover?id=<%=item.getId()%>" width="350" height="200">
 <%=item.getName()%>
 </a>
 
@@ -63,4 +63,3 @@ if(model == null) {
 
 </body>
 </html>
-<!-- request.getRequestDispatcher("./GetGameServlet").forward(request, response); -->

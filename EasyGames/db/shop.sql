@@ -38,7 +38,7 @@ CREATE TABLE amministratore
 	FOREIGN KEY(account) REFERENCES account(nickname) ON UPDATE cascade ON DELETE cascade
 );
 
-CREATE TABLE acquisto
+CREATE TABLE ordine
 (
 	codice int NOT NULL AUTO_INCREMENT,
 	data date NOT NULL,
@@ -51,10 +51,10 @@ CREATE TABLE acquisto
 CREATE TABLE giochi_acquistati
 (
 	gioco char(3) NOT NULL,
-	acquisto int NOT NULL,
-	PRIMARY KEY(gioco,acquisto),
+	ordine int NOT NULL,
+	PRIMARY KEY(gioco,ordine),
 	FOREIGN KEY(gioco) REFERENCES gioco(id) ON UPDATE cascade ON DELETE cascade,
-	FOREIGN KEY(acquisto) REFERENCES acquisto(codice) ON UPDATE cascade ON DELETE cascade
+	FOREIGN KEY(ordine) REFERENCES ordine(codice) ON UPDATE cascade ON DELETE cascade
 );
 
 CREATE TABLE genere

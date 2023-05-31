@@ -1,4 +1,4 @@
-package it.easygames.model;
+package it.easygames.model.bean;
 
 import java.io.Serializable;
 

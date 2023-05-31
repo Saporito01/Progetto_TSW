@@ -1,4 +1,4 @@
-package it.easygames;
+package it.easygames.model.dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -6,13 +6,13 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import it.easygames.model.Game;
+import it.easygames.model.bean.Game;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class GameDAODriverMan implements IGameDAO {
+public class GameDaoDriverMan implements IGameDao {
 	
 	private static final String TABLE_NAME = "gioco";
 	
@@ -22,11 +22,11 @@ public class GameDAODriverMan implements IGameDAO {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO " + GameDAODriverMan.TABLE_NAME
+		String insertSQL = "INSERT INTO " + GameDaoDriverMan.TABLE_NAME
 				+ " (id, nome, descrizione, piattaforma, quantita, prezzo) VALUES (?, ?, ?, ?, ?, ?)";
 
 		try {
-			connection =DBConnectionPool.getConnection();
+			connection =DriverManagerConnectionPool.getConnection();
 			
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, game.getId());
@@ -44,7 +44,7 @@ public class GameDAODriverMan implements IGameDAO {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DBConnectionPool.releaseConnection(connection);
+				DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 	}
@@ -56,10 +56,10 @@ public class GameDAODriverMan implements IGameDAO {
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + GameDAODriverMan.TABLE_NAME + " WHERE id = ?";
+		String deleteSQL = "DELETE FROM " + GameDaoDriverMan.TABLE_NAME + " WHERE id = ?";
 
 		try {
-			connection = DBConnectionPool.getConnection();
+			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setString(1, id);
 
@@ -71,7 +71,7 @@ public class GameDAODriverMan implements IGameDAO {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DBConnectionPool.releaseConnection(connection);
+				DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 		return (result != 0);
@@ -84,10 +84,10 @@ public class GameDAODriverMan implements IGameDAO {
 
 		Game item = new Game();
 
-		String selectSQL = "SELECT * FROM " + GameDAODriverMan.TABLE_NAME + " WHERE id = ?";
+		String selectSQL = "SELECT * FROM " + GameDaoDriverMan.TABLE_NAME + " WHERE id = ?";
 
 		try {
-			connection = DBConnectionPool.getConnection();
+			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setString(1, id);
 
@@ -107,7 +107,7 @@ public class GameDAODriverMan implements IGameDAO {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DBConnectionPool.releaseConnection(connection);
+				DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 		return item;
@@ -122,11 +122,11 @@ public class GameDAODriverMan implements IGameDAO {
 		List<Game> model = new ArrayList<Game>();
 		
 		try {
-			connection = DBConnectionPool.getConnection();
+			connection = DriverManagerConnectionPool.getConnection();
 			
 			if(piattaforma.equals("tutto"))
 			{
-				String sql = "SELECT * FROM " + GameDAODriverMan.TABLE_NAME + " WHERE nome LIKE ?";
+				String sql = "SELECT * FROM " + GameDaoDriverMan.TABLE_NAME + " WHERE nome LIKE ?";
 				stmt = connection.prepareStatement(sql);
 				
 				stmt.setString(1, "%"+nome+"%");
@@ -135,7 +135,7 @@ public class GameDAODriverMan implements IGameDAO {
 			}
 			else
 			{
-				String sql = "SELECT * FROM " + GameDAODriverMan.TABLE_NAME + " WHERE nome LIKE ? AND piattaforma = ?";
+				String sql = "SELECT * FROM " + GameDaoDriverMan.TABLE_NAME + " WHERE nome LIKE ? AND piattaforma = ?";
 				stmt = connection.prepareStatement(sql);
 				
 				stmt.setString(1, "%"+nome+"%");
@@ -167,7 +167,7 @@ public class GameDAODriverMan implements IGameDAO {
 				System.out.println(sqlException);
 			} finally {
 				if (connection != null) 
-					DBConnectionPool.releaseConnection(connection);
+					DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 		return model;
@@ -180,14 +180,14 @@ public class GameDAODriverMan implements IGameDAO {
 
 		Collection<Game> games = new LinkedList<Game>();
 
-		String selectSQL = "SELECT * FROM " + GameDAODriverMan.TABLE_NAME;
+		String selectSQL = "SELECT * FROM " + GameDaoDriverMan.TABLE_NAME;
 
 		if (order != null && !order.equals("")) {
 			selectSQL += " ORDER BY " + order;
 		}
 		
 		try {
-			connection = DBConnectionPool.getConnection();
+			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 
 			ResultSet rs = preparedStatement.executeQuery();
@@ -210,7 +210,7 @@ public class GameDAODriverMan implements IGameDAO {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DBConnectionPool.releaseConnection(connection);
+				DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 		return games;
@@ -221,10 +221,10 @@ public class GameDAODriverMan implements IGameDAO {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String deleteSQL = "UPDATE " + GameDAODriverMan.TABLE_NAME + " SET nome = ?, descrizione = ?, piattaforma = ?, quantita = ?, prezzo = ? WHERE id = ?";
+		String deleteSQL = "UPDATE " + GameDaoDriverMan.TABLE_NAME + " SET nome = ?, descrizione = ?, piattaforma = ?, quantita = ?, prezzo = ? WHERE id = ?";
 
 		try {
-			connection = DBConnectionPool.getConnection();
+			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setString(1, game.getName());
 			preparedStatement.setString(2, game.getDesc());
@@ -241,7 +241,7 @@ public class GameDAODriverMan implements IGameDAO {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DBConnectionPool.releaseConnection(connection);
+				DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 	}

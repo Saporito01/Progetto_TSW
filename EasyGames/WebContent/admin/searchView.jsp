@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*, it.easygames.model.Game"%>
+    pageEncoding="ISO-8859-1" import="java.util.*,it.easygames.model.bean.Game"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link rel="icon" type="image/png" href="images/logo.png"/>
+<link rel="icon" type="image/png" href="../images/logo.png"/>
 <title>Risultati della ricerca</title>
 </head>
 <body>
@@ -19,7 +19,7 @@ Collection<?> model = (Collection<?>) request.getAttribute("gameSearch");
 			Game item = (Game)it.next();
 %>
 
-<a href="./GetGameServlet?id=<%=item.getId()%>"><img src="./GetCoverServlet?id=<%=item.getId()%>" width="350" height="200">
+<a href="getGame?id=<%=item.getId()%>"><img src="getCover?id=<%=item.getId()%>" width="350" height="200">
 <%=item.getName()%>
 </a>
 

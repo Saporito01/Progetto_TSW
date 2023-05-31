@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*, it.easygames.model.Game"%>
+    pageEncoding="ISO-8859-1" import="java.util.*,it.easygames.model.bean.Game"%>
 <%
 Collection<?> model = (Collection<?>) request.getAttribute("orderedGames");
 if(model == null) {
-	request.getRequestDispatcher("../GetOrderedGames").forward(request, response);
+	request.getRequestDispatcher("/orderedGames").forward(request, response);
 	return;
 }
 %>
@@ -11,12 +11,12 @@ if(model == null) {
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link rel="icon" type="image/png" href="images/logo.png"/>
+<link rel="icon" type="image/png" href="../images/logo.png"/>
 <title>Gestione giochi</title>
 </head>
 <body>
 
-<form action="../SearchGameServlet" method="get">
+<form action="../searchGame" method="get">
 	<select name="piattaforma">
 	<option value="tutto">Tutto</option>
 	<option value="origin">Origin</option>
@@ -41,7 +41,7 @@ if(model == null) {
 			Game item = (Game)it.next();
 %>
 
-<a href="../GetGameServlet?id=<%=item.getId()%>"><img src="../GetCoverServlet?id=<%=item.getId()%>" width="350" height="200">
+<a href="../getGame?id=<%=item.getId()%>"><img src="../getCover?id=<%=item.getId()%>" width="350" height="200">
 <%=item.getName()%>
 </a>
 

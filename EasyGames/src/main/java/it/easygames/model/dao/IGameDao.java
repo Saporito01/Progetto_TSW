@@ -1,10 +1,11 @@
-package it.easygames;
+package it.easygames.model.dao;
 
 import java.sql.SQLException;
 import java.util.Collection;
-import it.easygames.model.Game;
 
-public interface IGameDAO {
+import it.easygames.model.bean.Game;
+
+public interface IGameDao {
 	
 	public void doSave(Game bean) throws SQLException;
 

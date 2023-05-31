@@ -1,4 +1,4 @@
-package it.easygames;
+package it.easygames.model.dao;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +17,7 @@ public class CoverControl {
 		byte[] bt = null;
 
 		try {
-			connection = DBConnectionPool.getConnection();
+			connection = DriverManagerConnectionPool.getConnection();
 			String sql = "SELECT copertina FROM gioco WHERE id = ?";
 			stmt = connection.prepareStatement(sql);
 			
@@ -39,7 +39,7 @@ public class CoverControl {
 				System.out.println(sqlException);
 			} finally {
 				if (connection != null) 
-					DBConnectionPool.releaseConnection(connection);
+					DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 		return bt;
@@ -50,7 +50,7 @@ public class CoverControl {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		try {
-			con = DBConnectionPool.getConnection();
+			con = DriverManagerConnectionPool.getConnection();
 			stmt = con.prepareStatement("UPDATE gioco SET copertina = ? WHERE id = ?");
 			try {
 				stmt.setBinaryStream(1, cover, cover.available());
@@ -68,7 +68,7 @@ public class CoverControl {
 				System.out.println(sqlException);
 			} finally {
 				if (con != null)
-					DBConnectionPool.releaseConnection(con);
+					DriverManagerConnectionPool.releaseConnection(con);
 			}
 		}
 	}

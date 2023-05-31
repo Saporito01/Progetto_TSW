@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*, it.easygames.model.Game"%>
+    pageEncoding="ISO-8859-1" import="java.util.*,it.easygames.model.bean.Game"%>
 
 <!DOCTYPE html>
 <html>
@@ -21,7 +21,7 @@
 %>
 
 <a href="">
-<img src="./GetCoverServlet?id=<%=item.getId()%>" width="350" height="200">
+<img src="getCover?id=<%=item.getId()%>" width="350" height="200">
 <%=item.getName()%>
 </a>
 

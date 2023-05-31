@@ -1,10 +1,8 @@
-package it.easygames.servlet;
+package it.easygames.control;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Collection;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -13,19 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import it.easygames.GameDAODriverMan;
-import it.easygames.IGameDAO;
-import it.easygames.CoverControl;
-import it.easygames.model.Game;
+import it.easygames.model.bean.Game;
+import it.easygames.model.dao.CoverControl;
+import it.easygames.model.dao.GameDaoDriverMan;
+import it.easygames.model.dao.IGameDao;
 
-@WebServlet("/AddGameServlet")
+
+@WebServlet("/addGame")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 maxFileSize = 1024 * 1024 * 10, // 10MB
 maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class AddGameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	static IGameDAO gameDAO = new GameDAODriverMan();
+	static IGameDao gameDAO = new GameDaoDriverMan();
 
     public AddGameServlet() {
         super();
@@ -63,17 +62,13 @@ public class AddGameServlet extends HttpServlet {
 				if (fileName != null && !fileName.equals(""))
 						CoverControl.updateCover(id, part.getInputStream());
 			}
-			
-			Collection<Game> games = gameDAO.doRetrieveAll("nome");
-			request.setAttribute("games", games);
 		}
 		catch(SQLException e)
 		{
 			System.out.println("Error:" + e.getMessage());
 		}
 
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/addGamePage.jsp");
-		dispatcher.forward(request, response);
+		response.sendRedirect("admin/addGamePage.jsp");
 	}
 
 }

@@ -8,7 +8,7 @@
 <body>
 <a href="home_page.jsp"><img src="images/logo.png" width="300" height="98" alt="Logo"></a>
 
-<form action="./SearchGameServlet" method="get">
+<form action="searchGame" method="get">
 	<select name="piattaforma">
 	<option value="tutto">Tutto</option>
 	<option value="origin">Origin</option>
