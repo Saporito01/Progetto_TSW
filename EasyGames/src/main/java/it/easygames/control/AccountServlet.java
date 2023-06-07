@@ -1,6 +1,7 @@
 package it.easygames.control;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -38,15 +39,15 @@ public class AccountServlet extends HttpServlet {
 				
 				Account account = new Account();
 				account.setNickname(nickname);
-				account.setNickname(nome);
+				account.setNome(nome);
 				account.setCognome(cognome);
 				account.setDataNascita(dataNascita);
 				account.setEmail(email);
-				account.setPassword(password);
+				account.setPassword(toHash(password));
 						
 				AccountControl.doSave(account);
 
-				response.sendRedirect("");
+				response.sendRedirect("login.jsp");
 			}
 			else
 			{
@@ -62,6 +63,23 @@ public class AccountServlet extends HttpServlet {
 			System.out.println("Error:" + e.getMessage());
 		}
 	}
+	
+	private String toHash(String password) {
+        String hashString = null;
+        try {
+            java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-512");
+            byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+            hashString = "";
+            for (int i = 0; i < hash.length; i++) {
+                hashString += Integer.toHexString( 
+                                  (hash[i] & 0xFF) | 0x100 
+                              ).toLowerCase().substring(1,3);
+            }
+        } catch (java.security.NoSuchAlgorithmException e) {
+            System.out.println(e);
+        }
+        return hashString;
+    }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

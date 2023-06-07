@@ -21,7 +21,7 @@ CREATE TABLE account
 	cognome varchar(25) NOT NULL,
 	data_nascita date NOT NULL,
 	email varchar(50) NOT NULL UNIQUE,
-	password varchar(30) NOT NULL
+	password varchar(150) NOT NULL
 );
 
 CREATE TABLE cliente

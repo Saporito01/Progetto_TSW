@@ -73,7 +73,7 @@ public class editGameServlet extends HttpServlet {
 			System.out.println("Error:" + e.getMessage());
 		}
 		
-		response.sendRedirect("admin/adminHomePage.jsp");
+		response.sendRedirect("/EasyGames/admin/viewGames.jsp");
 	}
 
 }

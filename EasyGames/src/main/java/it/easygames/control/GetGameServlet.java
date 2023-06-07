@@ -28,13 +28,22 @@ public class GetGameServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String idGame = (String) request.getParameter("id");
+		String idGameAdmin = (String) request.getParameter("idAdmin");
+		String idGameHome = (String) request.getParameter("idHome");
 
 		try
 		{
-			if(idGame != null)
+			if(idGameHome != null)
 			{
-				Game game = gameDAO.doRetrieveByKey(idGame);
+				Game game = gameDAO.doRetrieveByKey(idGameHome);
+				request.setAttribute("game", game);
+				
+				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/common/gamePage.jsp");
+				dispatcher.forward(request, response);
+			}
+			else if(idGameAdmin != null)
+			{
+				Game game = gameDAO.doRetrieveByKey(idGameAdmin);
 				request.setAttribute("game", game);
 				
 				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/editGames.jsp");
@@ -45,7 +54,7 @@ public class GetGameServlet extends HttpServlet {
 				Collection<Game> games = gameDAO.doRetrieveAll("nome");
 				request.setAttribute("games", games);
 
-				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/home_page.jsp");
+				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/common/home_page.jsp");
 				dispatcher.forward(request, response);
 			}
 		}

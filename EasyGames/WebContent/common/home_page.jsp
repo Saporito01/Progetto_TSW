@@ -3,7 +3,7 @@
 <%
 Collection<?> model = (Collection<?>) request.getAttribute("games");
 if(model == null) {
-	request.getRequestDispatcher("getGame").forward(request, response);
+	request.getRequestDispatcher("../getGame").forward(request, response);
 	return;
 }
 %>
@@ -11,15 +11,13 @@ if(model == null) {
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link rel="icon" type="image/png" href="images/logo.png"/>
+<link rel="icon" type="/image/png" href="./images/logo.png"/>
 <title>Easy Games</title>
 </head>
 <body>
 
 
-<%@include file="fragment/header.jsp" %>
-
-<a href="admin/adminHomePage.jsp">Admin Page</a>
+<%@include file="/fragment/header.jsp" %>
 
 <main>
 <div>
@@ -31,8 +29,8 @@ if(model == null) {
 			Game item = (Game)it.next();
 %>
 
-<a href="">
-<img src="getCover?id=<%=item.getId()%>" width="350" height="200">
+<a href="./getGame?idHome=<%=item.getId()%>">
+<img src="./getCover?id=<%=item.getId()%>" width="350" height="200">
 <%=item.getName()%>
 </a>
 
@@ -58,7 +56,7 @@ if(model == null) {
 </main>
 
 
-<%@include file="fragment/footer.jsp" %>
+<%@include file="/fragment/footer.jsp" %>
 
 
 </body>

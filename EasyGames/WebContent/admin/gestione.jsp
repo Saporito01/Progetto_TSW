@@ -13,7 +13,7 @@
 <a href="viewGames.jsp"><button>Visualizza e modifica giochi</button></a>
 <a href="ordersPage.jsp"><button>Visualizza ordini</button></a>
 
-<a href="../home_page.jsp">Home Page</a>
+<a href="/EasyGames/">Home Page</a>
 
 </body>
 </html>

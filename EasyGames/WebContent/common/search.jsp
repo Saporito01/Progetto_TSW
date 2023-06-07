@@ -9,7 +9,7 @@
 <title>Risultati della ricerca</title>
 </head>
 <body>
-<%@include file="fragment/header.jsp" %>
+<%@include file="/fragment/header.jsp" %>
 
 <div>
 <%
@@ -20,7 +20,7 @@
 			Game item = (Game)it.next();
 %>
 
-<a href="">
+<a href="getGame?idHome=<%=item.getId()%>">
 <img src="getCover?id=<%=item.getId()%>" width="350" height="200">
 <%=item.getName()%>
 </a>
@@ -31,6 +31,6 @@
 %>
 </div>
 
-<%@include file="fragment/footer.jsp" %>
+<%@include file="/fragment/footer.jsp" %>
 </body>
 </html>

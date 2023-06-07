@@ -39,14 +39,14 @@ public class SearchGameServlet extends HttpServlet {
 				Collection<Game> gameList = gameDAO.searchBarGame(nome, piattaforma);
 				
 				request.setAttribute("gameSearch", gameList);
-				dispatcher = this.getServletContext().getRequestDispatcher("/search.jsp");
+				dispatcher = getServletContext().getRequestDispatcher("/common/search.jsp");
 			}
 			else
 			{
 				Collection<Game> gameList = gameDAO.searchBarGame(nome1, piattaforma);
 				
 				request.setAttribute("gameSearch", gameList);
-				dispatcher = this.getServletContext().getRequestDispatcher("/admin/searchView.jsp");
+				dispatcher = getServletContext().getRequestDispatcher("/admin/searchView.jsp");
 			}
 		
 			dispatcher.forward(request, response);

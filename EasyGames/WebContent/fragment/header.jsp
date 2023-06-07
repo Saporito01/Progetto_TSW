@@ -6,7 +6,7 @@
 <meta charset="ISO-8859-1">
 </head>
 <body>
-<a href="home_page.jsp"><img src="images/logo.png" width="300" height="98" alt="Logo"></a>
+<a href="/EasyGames/"><img src="images/logo.png" width="300" height="98" alt="Logo"></a>
 
 <form action="searchGame" method="get">
 	<select name="piattaforma">
@@ -26,7 +26,7 @@
 	<input type="submit" value="Cerca">
 </form>
 
-<a href=""><img src="images/profilo.png" width="30" height="30" alt="Account"></a>
+<a href="login.jsp"><img src="images/profilo.png" width="30" height="30" alt="Account"></a>
 <a href=""><img src="images/carrello.png" width="30" height="30" alt="Carrello"></a>
 </body>
 </html>

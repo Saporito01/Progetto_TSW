@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.ArrayList;
 
 import it.easygames.model.bean.Ordine;
 
@@ -54,6 +55,42 @@ public class OrderControl {
 	}
 	
 	
+	public synchronized static ArrayList<String> loadOrderAccount() throws SQLException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		ArrayList<String> account = new ArrayList<String>();
+
+		String selectSQL = "SELECT DISTINCT account FROM ordine";
+
+		try
+		{
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next())
+				account.add(rs.getString("account"));
+		}
+		finally
+		{
+			try
+			{
+				if (preparedStatement != null)
+					preparedStatement.close();
+			}
+			finally
+			{
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		
+		return account;
+	}
+	
+	
 	public synchronized static void doSave(Ordine ordine) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -64,9 +101,9 @@ public class OrderControl {
 			connection =DriverManagerConnectionPool.getConnection();
 			
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(2, ordine.getData());
-			preparedStatement.setString(3, ordine.getOra());
-			preparedStatement.setString(4, ordine.getAccount());
+			preparedStatement.setString(1, ordine.getData());
+			preparedStatement.setString(2, ordine.getOra());
+			preparedStatement.setString(3, ordine.getAccount());
 
 			preparedStatement.executeUpdate();
 

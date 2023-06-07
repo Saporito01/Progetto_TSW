@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
+import java.util.ArrayList;
 
 import it.easygames.model.bean.Ordine;
 import it.easygames.model.dao.OrderControl;
@@ -29,11 +30,17 @@ public class SearchOrderServlet extends HttpServlet {
 		String accountName = (String) request.getParameter("account");
 		
 		try
-		{
-			Collection<Ordine> ordini = OrderControl.doRetrieveByDate(data1, data2, accountName);
-			request.setAttribute("ordini", ordini);
+		{			
+			if(accountName != null)
+			{
+				Collection<Ordine> ordini = OrderControl.doRetrieveByDate(data1, data2, accountName);
+				request.setAttribute("orderList", ordini);
+			}
 			
-			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/ordersPage.jsp");
+			ArrayList<String> account = OrderControl.loadOrderAccount();
+			request.setAttribute("accounts", account);
+			
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/ordersPage.jsp");
 			dispatcher.forward(request, response);
 		}
 		catch(SQLException e)
